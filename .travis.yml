@@ -6,4 +6,4 @@ language: python # => 1
     install:
       - pip install -r GiftcardSite/requirements.txt
     script:
-      - python GiftcardSite/manage.py test
+      - python GiftcardSite/manage.py test GiftcardSite
