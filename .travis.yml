@@ -13,7 +13,7 @@ install:
 # command to run tests
 script:
   - python GiftcardSite/manage.py LegacySite
-  - python manage.py makemigrations
-  - python manage.py migrate
+  - python GiftcardSite/manage.py makemigrations
+  - python GiftcardSite/manage.py migrate
   - sh import_dbs.sh
   - python GiftcardSite/manage.py test GiftcardSite
