@@ -12,4 +12,8 @@ install:
   - pip install -r GiftcardSite/requirements.txt
 # command to run tests
 script:
+  - python GiftcardSite/manage.py LegacySite
+  - python manage.py makemigrations
+  - python manage.py migrate
+  - sh import_dbs.sh
   - python GiftcardSite/manage.py test GiftcardSite
