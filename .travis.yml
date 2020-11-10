@@ -1,9 +1,15 @@
-language: python # => 1
-    python:
-	- Python 3.8.5
-    env:
-      -DJANGO=3.1.2
-    install:
-      - pip install -r GiftcardSite/requirements.txt
-    script:
-      - python GiftcardSite/manage.py test GiftcardSite
+language: python
+python:
+  - "3.4"
+  - "3.5"
+  - "3.6"      # current default Python on Travis CI
+  - "3.7"
+  - "3.8"
+  - "3.8-dev"  # 3.8 development branch
+  - "nightly"  # nightly build
+# command to install dependencies
+install:
+  - pip install -r requirements.txt
+# command to run tests
+script:
+  - python GiftcardSite/manage.py test GiftcardSite
