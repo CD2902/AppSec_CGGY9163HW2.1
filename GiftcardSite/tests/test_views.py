@@ -28,7 +28,7 @@ class TestViews(TestCase):
           response = self.client.get(reverse('Register'))
           self.assertEquals(response.status_code, 200)
           self.assertTemplateUsed(response, 'register.html')
-
+"""
      def test_legacySite_BuyGiftCard_GET(self):
           #client = Client()
           response = self.client.get(reverse('Buy Gift Card'))
@@ -60,3 +60,4 @@ class TestViews(TestCase):
           self.assertTemplateUsed(response, 'use.html')
 
 
+"""
