@@ -15,12 +15,10 @@ class TestResponse(TestCase):
 
      def test_correct_autoescaping(self):
           prouct1 = Product.objects.create(product_name = 'test', product_image_path= 'test', recommended_price = 1, description = 'test')
-          response = self.client.get(reverse('Buy Gift Card Index'))
+          response = self.client.get(reverse('Gift a Card'))
           print(response)
           soup = BeautifulSoup(response.content)
           print(soup)
           testsoupfind = soup.find('input', {'name': 'csrfmiddlewaretoken'})
           print(response.content)
           print(testsoupfind)
-          #self.assertNotContains(response, "<a>evil</a>", status_code=200)
-          #self.assertContains(response, "&lt;a&gt;evil&lt;/a&gt;", status_code=200)
