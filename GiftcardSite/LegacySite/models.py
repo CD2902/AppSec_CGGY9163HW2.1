@@ -2,13 +2,15 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.backends import BaseBackend
 from . import extras
+from fernet_fields import EncryptedTextField
+
 
 # Create your models here.
 class User(AbstractBaseUser):
     username = models.CharField(max_length=30, unique=True)
     password = models.CharField(max_length=97)
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['password']
+    #USERNAME_FIELD = 'username'
+    #REQUIRED_FIELDS = ['password']
 
 class OurBackend(BaseBackend):
     def authenticate(self, request, username, password):
@@ -37,9 +39,12 @@ class Product(models.Model):
 
 class Card(models.Model):
     id = models.AutoField(primary_key=True)
-    data = models.BinaryField(unique=True)
+    #data = models.BinaryField(unique=True)
+    data =  EncryptedTextField()
     product = models.ForeignKey('LegacySite.Product', on_delete=models.CASCADE, default=None)
     amount = models.IntegerField()
+    #amount = EncryptedTextField()
     fp = models.CharField(max_length=100, unique=True)
     user = models.ForeignKey('LegacySite.User', on_delete=models.CASCADE)
+    #user = EncryptedTextField()
     used = models.BooleanField(default=False)
