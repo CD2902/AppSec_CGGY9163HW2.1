@@ -12,12 +12,18 @@ class TestResponse(TestCase):
           self.client = Client()
 
 
-     def test_correct_autoescaping(self):
+     def test_xss_gift(self):
           prouct1 = Product.objects.create(product_name = 'test', product_image_path= 'test', recommended_price = 1, description = 'test')
-          #section = Section.objects.create(name='<a>evil</a>')
-          response = self.client.get('/buy',{'director' : '<a>evil</a>'})
-          #print("I'm in test_response")
-          #print(response.content)
-          self.assertNotContains(response, "<a>evil</a>", status_code=200)
+          response = self.client.get('/gift' , {'director' : '<a>evil</a>'})
+          print(response.content)
+          #self.assertNotContains(response, "<a>evil</a>", status_code=200)
+          self.assertContains(response, "&lt;a&gt;evil&lt;/a&gt;", status_code=200)
+
+
+     def test_xss_buy(self):
+          prouct1 = Product.objects.create(product_name = 'test', product_image_path= 'test', recommended_price = 1, description = 'test')
+          response = self.client.get('/buy' , {'director' : '<a>evil</a>'})
+          print(response.content)
+          #self.assertNotContains(response, "<a>evil</a>", status_code=200)
           self.assertContains(response, "&lt;a&gt;evil&lt;/a&gt;", status_code=200)
 
