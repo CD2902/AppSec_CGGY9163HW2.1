@@ -44,9 +44,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Custom
     'LegacySite',
+    'sslserver',
 ]
 
 MIDDLEWARE = [
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -147,4 +149,7 @@ AUTHENTICATION_BACKENDS = ['LegacySite.models.OurBackend']
 
 
 #Turn it to HTTPS
-#SECURE_SSL_REDIRECT  = True
+#SECURE_SSL_REDIRECT  = False
+#SESSION_COOKIE_SECURE = True
+#SECURE_SSL_REDIRECT = True
+#CSRF_COOKIE_SECURE = True

