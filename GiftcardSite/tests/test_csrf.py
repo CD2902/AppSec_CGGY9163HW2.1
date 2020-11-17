@@ -3,7 +3,7 @@ from django.urls import reverse
 from LegacySite.models import *
 from LegacySite.views import *
 from django.http import HttpRequest
-from bs4 import BeautifulSoup
+#from bs4 import BeautifulSoup
 
 
 
