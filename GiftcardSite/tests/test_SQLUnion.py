@@ -16,7 +16,7 @@ class TestResponse(TestCase):
 
      def test_SQLi(self):
           password = 'test_pass_to_attack'
-          User1 = User.objects.create(username='admin', password='test_pass_to_attack')
+          User1 = User.objects.create(username='admin1', password='test_pass_to_attack')
           #self.client.login(username = 'admin', password = password)
           data = io.StringIO('{"merchant_id": "NYU Apparel Card", "customer_id": "chrisd", "total_value": "12313", "records": [{"record_type": "amount_change", "amount_added": 2000, "signature": " \' union SELECT password from LegacySite_user --"}]}')
           filename="newcard (3).gftcrd"
