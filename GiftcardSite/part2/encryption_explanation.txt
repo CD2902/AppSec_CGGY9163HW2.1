@@ -1,0 +1,42 @@
+Encryption
+-----------------------
+One of the following Modules I find to use to encrypt the database was django-fernet-fields , it had the ability to encrypt through the database and decrypt when it 
+needed to read from the data base and less headache with other tools that caused rendering issue when encrypting that data column. Installed the django-fernet-fields 
+and imported the library in the model.py by typing "rom fernet_fields import EncryptedTextField
+" within the header field. After importing the module, I replaced data = models.BinaryField(unique=True) and used the function EncryptedTextField() to encrypt the 
+data string when giftcard file is created. 
+
+NOTE: the test_sqlunion test case fails when I use the EncryptedTextField() since it does not support lookups. 
+
+
+Key management
+--------------
+One of the method I did to store my keys is put it in a .env file and let it call through the file as an enviroment varaibles. I believe this can be secure if we 
+place the .env file to a private server that only makes call to the public web application Host IP. This makes the keys that was stored in the source code can be 
+called within seprate application 
+To implement the process installed python-decouple 3.3. To store the keys, create an .env file put a variable name and assignined to your key. after the key is in the 
+.env , we can go to the setting.py file under the Main Giftcard director. import the module for decouple which is "from decouple import config" and use the config 
+function to call the keys to the .env file. Within a production enviroment we can host a private key json server with certificate autentication to request the keys that 
+are called from the web application.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
