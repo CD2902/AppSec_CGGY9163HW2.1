@@ -1,0 +1,38 @@
+Attack # 1
+----------
+There are two pages that have XSS vulnerbilities. The templated files was the only thing needed to search to find an exploit. In side the files there was a keyword that within the django security that told us that the person has to be caution to lose. Exploited the attack by assigning content to the variable for the website to render.
+Tyoing http://127.0.0.1:8000/gift/director=foo render a text foo and then when typing http://127.0.0.1:8000/gift/director=<script>alert(1)</script> render an alert object which is an XSS vulnerbility. Within the XSS vulnerbilitie used a Usefull Phishing script call Socailphish and creating a fake link to create a bitly link wrap with XSS attack for users to click on the link and sighn in there credentials. Patching the attack was simply remove the Safe keyword or wrap it with a Autoescape on and off tag.
+
+Attack # 2
+-------------
+With this XSS attack, I can create a CSRF attack where if someone clicks a button, I can make them buy a gift card to the user hacker and set the amount of item inside that product. Looking at the OWASP CSRF examples, copy the templated code and added the proper form action and input type for the CSRF attack to work. To get the proper form action, I had to use burp suit to capture the post request and see what URL it was going to use the POST request which was http://127.0.0.1:8000/gift/0. Then was able to add the CSRF by setting the value for director that is exploitable to XSS attack. http://127.0.0.1:8000/gift.html?director=<form action="http://127.0.0.1:8000/gift/0" method="POST"> <input type="hidden" name="amount" value="2000"/> <input type="hidden" name="username" value="hacker"/><input type="submit" value="View my pictures"/> </form>
+Proper fix was patch the XSS vulneribility and enable the XSS protection by having the cookie and rendering the CSRFmiddleware token. 
+
+Attack # 3
+-----------
+Reviewing the view.py under the LegacySite directory there is a raw query that should not be used in your program since it can cause SQL injection attack. Looking at the query it wants the value for signature. So, in the signature value I did a comment to spit out a SQL error which I did and try various  SQL injection methods. One SQL injection that failed when I had to call in another query, the program logged the error that I can not run more than one query. Researching other attacks, I was able to find a video demonstration on injection cases when SQLite allow one query. Using the union attack with the same columns of the original entry made the application to spit out the admin password hash.
+ 
+To fix the code,  
+Translated card_query = Card.objects.raw('select id from LegacySite_card where data = \'%s\'' % signature) to 
+card_query = Card.objects.filter(data = signature.encode()) using the object relational model which should be used to query items within the database.
+
+
+Attack # 4
+----------
+Another vulnerability that explained within the documentation was sites using http. It is possible for existing cookies to be leaked if there is a man in the middle between the cloent and server, the attack can capture the header information containing the session id of that user. By doing that I can make the victim buy items without them being alerted. 
+
+To fix this issue, I made my site HTTPS instead of HTTP. To do that install django-sslserver  and add sslserver to the installed app setting to use the command  python3 manage.py runsslserver instead of python3 manage runserver. After starting the sslserver, it shows a lock on the url and shows that its using https without a validated certificate. 
+
+Bug #1
+--------
+Tested how the use post request was used and outputed an error that i couldnt spawned up an error stating I can’t use a binary value with a type string, to fix it I 
+went to one of the lines that pointed the error and wrap with a string, after fixing the issue the post request worked successfully.
+
+Bug #2
+-------
+Within the gift path page, I wasn't able to gift a someone because within the view.py file, extras.write_card_data(card_file_path) was missing argument needed to write the data which was  prod, prod.recommended_price,user_account and fix it to extras.write_card_data(card_file_path, prod, prod.recommended_price,user_account)
+
+Bug #3
+-------
+The test SQL unit test was causing issue with f'/tmp/newcard_{request.user.id}_{user_cards[0].count + 1}.gftcrd' it seems user_cards[0] is not within the column in the database, fix the issue by changing it to f'/tmp/newcard_{request.user.id}_.gftcrd' so it won't get called during the test case or when to use the use card POST request. testing the post request and test cases and caused any issue with the program.
+
