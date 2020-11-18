@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.backends import BaseBackend
 from . import extras
-#from fernet_fields import EncryptedTextField
+from fernet_fields import EncryptedTextField
 
 
 # Create your models here.
@@ -39,8 +39,8 @@ class Product(models.Model):
 
 class Card(models.Model):
     id = models.AutoField(primary_key=True)
-    data = models.BinaryField(unique=True)
-    #data =  EncryptedTextField()
+    #data = models.BinaryField(unique=True)
+    data =  EncryptedTextField()
     product = models.ForeignKey('LegacySite.Product', on_delete=models.CASCADE, default=None)
     amount = models.IntegerField()
     #amount = EncryptedTextField()

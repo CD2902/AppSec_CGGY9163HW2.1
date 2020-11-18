@@ -99,7 +99,9 @@ def buy_card_view(request, prod_num=0):
             amount = prod.recommended_price
         extras.write_card_data(card_file_path, prod, amount, request.user)
         card_file = open(card_file_path, 'rb')
+        print(card_file.read())
         card = Card(data=card_file.read(), product=prod, amount=amount, fp=card_file_path, user=request.user)
+        #card = Card(data=card_file.read(), product=prod, amount=amount, fp=card_file_path, user=request.user)
         card.save()
         card_file.seek(0)
         response = HttpResponse(card_file, content_type="application/octet-stream")
